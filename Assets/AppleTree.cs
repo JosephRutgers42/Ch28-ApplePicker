@@ -17,6 +17,13 @@ public class AppleTree : MonoBehaviour
     public float secondsBetweenAppleDrops = 1f;
     void Start()
     {
+        Invoke("DropApple", 2f);
+    }
+
+    void DropApple() {
+        GameObject apple = Instantiate<GameObject>(applePrefab);
+        apple.transform.position = transform.position;
+        Invoke("DropApple", secondsBetweenAppleDrops);
 
     }
 
@@ -35,9 +42,12 @@ public class AppleTree : MonoBehaviour
         {
             speed = -Mathf.Abs(speed);
         }
-        else if (Random.value < chanceToChangeDirections) {
-            speed *= -1;
-        }
+        
+        
 
+        void FixedUpdate(){
+           if (Random.value < chanceToChangeDirections)
+                speed *= -1;
+        }
     }
 }
